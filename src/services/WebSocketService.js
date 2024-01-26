@@ -13,7 +13,7 @@ const WebSocketService = () => {
       console.log("Connected to WebSocket");
       // Subscribe to the Public Topic
       // stompClient.subscribe("/topic/public", getAllChats);
-      stompClient.subscribe("/topic/public", onMessageReceived);
+      //stompClient.subscribe("/topic/public", onMessageReceived);
 
       // Request all chats from the server
       stompClient.send(
@@ -60,6 +60,7 @@ const WebSocketService = () => {
   }
 
   return {
+    stompClient,
     connectWebSocket,
     disconnectWebSocket,
     sendMessage,

@@ -1,6 +1,6 @@
 export const shouldDisplayDateSeparator = (currentIndex, messages) => {
   const isSameDay = (date1, date2) =>
-    date1.toDateString() === date2.toDateString();
+    new Date(date1).toDateString() === new Date(date2).toDateString();
 
   return (
     currentIndex === 0 ||
@@ -12,7 +12,7 @@ export const shouldDisplayDateSeparator = (currentIndex, messages) => {
 };
 
 export const formatTimestamp = (timestamp) => {
-  return timestamp.toLocaleTimeString([], {
+  return new Date(timestamp).toLocaleTimeString([], {
     hour: "numeric",
     minute: "2-digit",
   });

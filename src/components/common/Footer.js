@@ -4,7 +4,7 @@ import { Tooltip } from "react-tooltip";
 
 const Footer = () => {
   return (
-    <footer className="bg-white p-2 border-t-2">
+    <footer className="h-[8%] bg-white p-2 border-t-2">
       <div className="container mx-auto flex items-center justify-center">
         {/* Contact Link with Tooltip */}
         <a

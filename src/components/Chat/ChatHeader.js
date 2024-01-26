@@ -3,9 +3,13 @@ import React from "react";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { IoPersonAddOutline } from "react-icons/io5";
 import { SlOptions } from "react-icons/sl";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../redux/selectors/selectors";
 
 const ChatHeader = ({ participants, onClose }) => {
-  participants = participants.filter((participant) => participant.id !== 1);
+  // const currentUser = useSelector((state) => state.app.currentUser);
+  const currentUser = useSelector(selectCurrentUser);
+  participants = participants.filter((p) => p.id !== currentUser.id);
   return (
     <div className="h-16 border-b flex justify-between items-center w-full px-5 py-2 shadow-sm">
       {/* Participant Avatars */}

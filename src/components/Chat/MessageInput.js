@@ -3,11 +3,8 @@ import { AiOutlineSend } from "react-icons/ai";
 import { BiMessageSquareAdd } from "react-icons/bi";
 import { IoImage } from "react-icons/io5";
 
-
 const MessageInput = ({ onSend }) => {
   const [newMessage, setNewMessage] = useState("");
-
-  
 
   const handleInputChange = (e) => {
     setNewMessage(e.target.value);

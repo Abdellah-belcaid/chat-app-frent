@@ -1,6 +1,6 @@
 // MessageDateSeparator.js
 import React from "react";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
 import { isYesterday, formatDate } from "../utils/dateUtils";
 
 const MessageDateSeparator = ({ date }) => {
@@ -12,7 +12,6 @@ const MessageDateSeparator = ({ date }) => {
       className="flex items-center justify-center mt-4 mb-2"
       initial={{ opacity: 0, y: -10 }} // Initial animation state
       animate={{ opacity: 1, y: 0 }} // Animation state when rendered
-      
     >
       <hr className="w-1/4 border-t border-gray-300" />
       <span className="mx-4 text-gray-500">

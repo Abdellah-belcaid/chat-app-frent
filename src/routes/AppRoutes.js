@@ -5,14 +5,15 @@ import Chats from "../pages/Chats";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Profile from "../pages/Profile";
+import Register from "../pages/Register";
 
 const AppRoutes = () => {
   return (
-    <div className="flex h-full p-1 m-1">
+    // <div className="flex h-[84%] w-full my-1 scrollbar-hide">
       <Routes>
         {/* Public Routes */}
         <Route path="/login" element={<Login />} />
-
+        <Route path="/register" element={<Register />} />
         {/* Private Routes */}
         <Route path="/chats" element={<Chats />} />
         <Route path="/profile" element={<Profile />} />
@@ -22,7 +23,7 @@ const AppRoutes = () => {
 
         {/* Add more routes as needed */}
       </Routes>
-    </div>
+    // </div>
   );
 };
 

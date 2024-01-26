@@ -43,6 +43,10 @@ const user6 = new User(6, "Emily White", avatar1);
 const user7 = new User(7, "Daniel Lee", avatar2);
 
 const chat1 = new Chat(1, [user1, user2]);
+const chat2 = new Chat(2, [user1, user3]);
+const chat3 = new Chat(3, [user2, user4, user5]);
+
+
 
 const message1 = new Message(1, user1, "Hey, how are you?");
 const message2 = new Message(2, user2, "I'm doing well, thanks!");
@@ -52,8 +56,6 @@ chat1.messages.push(message1, message2, message2_1);
 user1.chats.push(chat1);
 user2.chats.push(chat1);
 
-const chat2 = new Chat(2, [user1, user3]);
-const chat3 = new Chat(3, [user2, user4, user5]);
 
 const message3 = new Message(3, user3, "Hello there!");
 const message4 = new Message(4, user1, "Hi! How are you doing?");
@@ -81,13 +83,13 @@ chat5.messages.push(message9);
 
 user1.chats.push(chat4, chat5);
 
-for (let i = 1; i <= 4; i++) {
+for (let i = 8; i <= 10; i++) {
   const message = new Message(
     i,
     user1,
     `Message ${i} from User 1 to User 3`,
     "sent",
-    new Date(2023, 0, i, 10, i) // Set the hour to 10 and minutes to i
+    new Date(2024, 0, i, 10, i) // Set the hour to 10 and minutes to i
   );
   chat2.messages.push(message);
 }
