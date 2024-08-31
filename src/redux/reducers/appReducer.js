@@ -1,7 +1,6 @@
 // In your Redux reducer
-import { users } from "../../data/testData2";
 const initialState = {
-  currentUser: users[0],
+  currentUser: null,
 };
 
 const appReducer = (state = initialState, action) => {

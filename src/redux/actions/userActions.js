@@ -1,40 +1,43 @@
 // userActions.js
-import {
-  ADD_USER,
-  UPDATE_USER,
-  DELETE_USER,
-  LOAD_USER_INFO,
-  LOAD_USER_CHATS,
-} from "../constants";
+import * as types from "../constants";
+import UserService from "src/services/UserService";
+import AuthService from "src/services/authService";
 
-export const addUser = (user) => ({
-  type: ADD_USER,
-  payload: user,
-});
+export const fetchAllUsers = () => {
+  return async (dispatch) => {
+    dispatch({ type: types.FETCH_ALL_USERS_REQUEST });
 
-export const updateUser = (user) => ({
-  type: UPDATE_USER,
-  payload: user,
-});
+    try {
+      const users = await UserService.fetchAllUsers();
+      dispatch({ type: types.FETCH_ALL_USERS_SUCCESS, payload: users });
+    } catch (error) {
+      dispatch({ type: types.FETCH_ALL_USERS_FAILURE, error: error.message });
+    }
+  };
+};
 
-export const deleteUser = (userId) => ({
-  type: DELETE_USER,
-  payload: userId,
-});
+export const registerUser = (userData) => {
+  return async (dispatch) => {
+    dispatch({ type: types.REGISTER_USER_REQUEST });
 
-export const loadUserInfo = (userId) => ({
-  type: LOAD_USER_INFO,
-  payload: userId,
-});
+    try {
+      const registeredUser = await AuthService.registerUser(userData);
+      dispatch({ type: types.REGISTER_USER_SUCCESS, payload: registeredUser });
+    } catch (error) {
+      dispatch({ type: types.REGISTER_USER_FAILURE, error: error.message });
+    }
+  };
+};
 
-export const loadUserChats = (userId) => ({
-  type: LOAD_USER_CHATS,
-  payload: userId,
-});
+export const loginUser = (userData) => {
+  return async (dispatch) => {
+    dispatch({ type: types.LOGIN_USER_REQUEST });
 
-export const setCurrentUser = (user) => {
-  return {
-    type: "SET_CURRENT_USER",
-    payload: user,
+    try {
+      const authenticatedUser = await AuthService.loginUser(userData);
+      dispatch({ type: types.LOGIN_USER_SUCCESS, payload: authenticatedUser });
+    } catch (error) {
+      dispatch({ type: types.LOGIN_USER_FAILURE, error: error.message });
+    }
   };
 };

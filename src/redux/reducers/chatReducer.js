@@ -1,33 +1,34 @@
 // reducers/chatReducer.js
-
-import { chats } from "../../data/testData2";
-import { ADD_CHAT, DELETE_CHAT, UPDATE_CHAT } from "../constants";
+import * as types from "../constants";
 
 const initialState = {
-  chats: chats,
+  chats: [],
+  loading: false,
+  error: null,
 };
 
 const chatReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_CHAT:
+    case types.CREATE_NEW_CHAT_REQUEST:
+      return { ...state, loading: true, error: null };
+    case types.CREATE_NEW_CHAT_SUCCESS:
       return {
         ...state,
+        loading: false,
         chats: [...state.chats, action.payload],
+        error: null,
       };
-    case UPDATE_CHAT:
-      const { chatId, updatedChatData } = action.payload;
-      return {
-        ...state,
-        chats: state.chats.map((chat) =>
-          chat.id === chatId ? { ...chat, ...updatedChatData } : chat
-        ),
-      };
-    case DELETE_CHAT:
-      const chatIdToDelete = action.payload;
-      return {
-        ...state,
-        chats: state.chats.filter((chat) => chat.id !== chatIdToDelete),
-      };
+    case types.CREATE_NEW_CHAT_FAILURE:
+      return { ...state, loading: false, error: action.payload };
+    // Add other cases for handling different chat actions
+
+    case types.FETCH_CHATS_REQUEST:
+      return { ...state, loading: true, error: null };
+    case types.FETCH_CHATS_SUCCESS:
+      return { ...state, loading: false, chats: action.payload, error: null };
+    case types.FETCH_CHATS_FAILURE:
+      return { ...state, loading: false, error: action.error };
+
     default:
       return state;
   }

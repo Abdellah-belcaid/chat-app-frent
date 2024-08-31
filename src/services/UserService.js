@@ -1,34 +1,58 @@
 // UserService.js
-
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8088/api/v1/users"; // Update with your backend URL
+const API_BASE_URL = "http://localhost:8080/api/v1/users"; // Update with your backend URL
 
 const UserService = {
-  registerUser: async (user) => {
+  fetchAllUsers: async () => {
     try {
-      // Make a POST request to the backend to register the user
-      const response = await axios.post(`${BASE_URL}/register`, user);
-
-      // Return the registered user from the response
+      const response = await axios.get(`${API_BASE_URL}`);
       return response.data;
     } catch (error) {
-      // Handle errors, you can log them or perform other actions
-      console.error("Error registering user:", error);
-      throw error; // Rethrow the error for the calling code to handle
+      throw new Error("Failed to fetch users");
     }
   },
-  getAllUsers: async () => {
+  getUserById: async (userId) => {
     try {
-      // Make a GET request to retrieve all users from the backend
-      const response = await axios.get(`${BASE_URL}/all`);
-
-      // Return the list of users from the response
+      const response = await axios.get(`${API_BASE_URL}/${userId}`);
       return response.data;
     } catch (error) {
-      // Handle errors, you can log them or perform other actions
-      console.error("Error fetching all users:", error);
-      throw error; // Rethrow the error for the calling code to handle
+      throw new Error("Failed to fetch user by ID");
+    }
+  },
+  updateUser: async (userId, userData) => {
+    try {
+      const response = await axios.put(`${API_BASE_URL}/${userId}`, userData);
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to update user");
+    }
+  },
+  deleteUser: async (userId) => {
+    try {
+      await axios.delete(`${API_BASE_URL}/${userId}`);
+    } catch (error) {
+      throw new Error("Failed to delete user");
+    }
+  },
+  uploadAvatar: async (id, avatar) => {
+    try {
+      const formData = new FormData();
+      formData.append("id", id);
+      formData.append("avatar", avatar);
+
+      const response = await axios.put(
+        `${API_BASE_URL}/avatar/upload`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to upload avatar");
     }
   },
 };

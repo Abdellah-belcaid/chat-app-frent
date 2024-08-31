@@ -1,11 +1,10 @@
-import React from "react";
+import { FiUsers } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import {
   selectAllMessages,
   selectAllUsers,
   selectCurrentUser,
 } from "../../redux/selectors/selectors";
-import { FiUsers } from "react-icons/fi";
 
 const ChatsList = ({ chats, onSelect }) => {
   // Get participants and messages using selectors
@@ -35,7 +34,7 @@ const ChatsList = ({ chats, onSelect }) => {
     );
 
   return (
-    <div className="w-5/12 h-full border-2 flex flex-col mr-2 overflow-scroll scrollbar-hide">
+    <div className="w-5/12 h-full border-2 flex flex-col mr-2 overflow-scroll scrollbar-hide bg-gradient-to-b from-white via-red-50 to-purple-100">
       <ul>
         {Array.isArray(chats) &&
           chats.map((chat) => {
@@ -78,7 +77,11 @@ const ChatsList = ({ chats, onSelect }) => {
                         <span className="mr-1 text-blue-500">
                           {getLastMessageSenderName(chat)}:
                         </span>
-                        {getLastMessage(chat)?.text}
+                        {getLastMessage(chat)?.type === "text" ? (
+                          getLastMessage(chat)?.content
+                        ) : (
+                          <span className="italic">[Media]</span>
+                        )}
                       </>
                     ) : (
                       "No messages yet"

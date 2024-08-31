@@ -8,54 +8,28 @@ import avatar5 from "../assets/avatars/avatar 5.png";
 import avatar6 from "../assets/avatars/avatar 5.png";
 import avatar7 from "../assets/avatars/avatar 5.png";
 import avatar8 from "../assets/avatars/avatar 5.png";
+import msgImg from "../assets/images/msg/msg1.jpeg";
+import msgVid from "../assets/images/msg/msg2.mp4";
+import msgAud from "../assets/images/msg/msg3.mp3";
 
-// class User {
-//   constructor(id, name, avatar) {
-//     this.id = id;
-//     this.name = name;
-//     this.avatar = avatar;
-//     this.chats = [];
-//   }
-// }
+// import profile1 from "../assets/images/profile/profile1.jpg";
+// import profile2 from "../assets/images/profile/profile2.jpg";
+// import profile3 from "../assets/images/profile/profile3.jpg";
+// import profile4 from "../assets/images/profile/profile4.jpg";
+// import profile5 from "../assets/images/profile/profile5.jpg";
+import profile6 from "../assets/images/profile/profile6.jpg";
+// import profile7 from "../assets/images/profile/profile7.jpg";
+// import profile8 from "../assets/images/profile/profile8.jpg";
 
-class User {
-  constructor(id, name, avatar, email, password, status, bio, lastSeen) {
-    this.id = id;
-    this.name = name;
-    this.avatar = avatar;
-    this.email = email;
-    this.password = password; // Added password field
-    this.status = status;
-    this.bio = bio;
-    this.lastSeen = lastSeen;
-    this.chats = [];
-  }
-}
-class Chat {
-  constructor(id, participants) {
-    this.id = id;
-    this.participants = participants;
-    this.messages = [];
-    this.isGroupChat = participants.length > 2; // Assume it's a group chat if there are more than 2 participants
-  }
-}
+import { Chat, Message, MessageStatus, MessageType, User } from "./models";
 
-class Message {
-  constructor(id, sender, text, status = "sent", timestamp = new Date()) {
-    this.id = id;
-    this.sender = sender;
-    this.text = text;
-    this.timestamp = timestamp;
-    this.status = status; // Default status is "sent"
-  }
-}
 // Users
 
 const users = [];
 const user1 = new User(
   1,
   "John Doe",
-  avatar1,
+  profile6,
   "john@example.com",
   "johns_password123",
   "online",
@@ -160,9 +134,27 @@ const message1 = new Message(1, user1.id, "Hey, how are you?");
 const message2 = new Message(2, user2.id, "I'm doing well, thanks!");
 
 const message3 = new Message(3, user3.id, "Hello there!");
-const message4 = new Message(4, user1.id, "Hi! How are you doing?");
-const message5 = new Message(5, user3.id, "Sure, I am in!");
-const message6 = new Message(6, user1.id, "Yeah, it has been a while!");
+const message4 = new Message(
+  4,
+  user1.id,
+  msgAud,
+  MessageType.AUDIO,
+  MessageStatus.SENT
+);
+const message5 = new Message(
+  5,
+  user3.id,
+  msgVid,
+  MessageType.VIDEO,
+  MessageStatus.DELIVERED
+);
+const message6 = new Message(
+  6,
+  user1.id,
+  msgImg,
+  MessageType.IMAGE,
+  MessageStatus.READ
+);
 
 messages.push(message1, message2, message3, message4, message5, message6);
 

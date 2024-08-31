@@ -1,12 +1,11 @@
-import React, { useState } from "react";
-import { FiX, FiCheck } from "react-icons/fi";
+import { useState } from "react";
+import { FiCheck, FiX } from "react-icons/fi";
+import { useSelector } from "react-redux";
+import { selectOtherUsers } from "src/redux/selectors/selectors";
 
-const NewChatModal = ({ users, onClose, onSubmit }) => {
+const NewChatModal = ({ onClose, onSubmit }) => {
   const [selectedUser, setSelectedUser] = useState(null);
-
-  const handleUserSelect = (user) => {
-    setSelectedUser(user);
-  };
+  const users = useSelector(selectOtherUsers);
 
   const handleSubmit = () => {
     // You can perform any additional actions here before submitting
@@ -18,7 +17,7 @@ const NewChatModal = ({ users, onClose, onSubmit }) => {
       <div className="bg-white w-96 p-6 rounded-md border-2 relative">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-red-700 hover:text-red-950 text-lg bg-red-200 hover:bg-red-400 rounded-full p-1"
+          className="absolute top-5  right-5 text-red-700 hover:text-red-950 text-lg bg-red-100 hover:bg-red-400 rounded-full p-1"
         >
           <FiX />
         </button>
@@ -33,13 +32,18 @@ const NewChatModal = ({ users, onClose, onSubmit }) => {
             {users.map((user) => (
               <li
                 key={user.id}
-                className={`cursor-pointer p-2 rounded-md ${
+                className={`cursor-pointer flex items-center p-2 rounded-md ${
                   selectedUser && selectedUser.id === user.id
                     ? "bg-blue-100 text-blue-500"
                     : "hover:bg-gray-100"
                 }`}
-                onClick={() => handleUserSelect(user)}
+                onClick={() => setSelectedUser(user)}
               >
+                <img
+                  src={user.avatar} // Make sure to replace 'avatar' with the actual field in your user object that contains the image URL
+                  alt={`${user.name}'s avatar`}
+                  className="h-6 w-6 rounded-full mr-2"
+                />
                 {user.name}
               </li>
             ))}

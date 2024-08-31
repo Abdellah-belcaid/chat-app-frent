@@ -1,12 +1,11 @@
-import React from "react";
-import { FaRegCheckCircle, FaRegClock, FaRegTimesCircle } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { selectCurrentUser } from "src/redux/selectors/selectors";
 import {
   formatTimestamp,
   shouldDisplayDateSeparator,
 } from "../utils/dateUtils";
+import MessageContent from "./MessageContent";
 import MessageDateSeparator from "./MessageDateSeparator";
-import { selectCurrentUser } from "../../redux/selectors/selectors";
 
 const Messages = ({ messages, participants, scrollDown }) => {
   const currentUser = useSelector(selectCurrentUser);
@@ -20,10 +19,6 @@ const Messages = ({ messages, participants, scrollDown }) => {
     isCurrentUserSender(message) ? "justify-start" : "justify-end";
   const getBubbleAlignment = (message) =>
     isCurrentUserSender(message) ? "justify-start" : "flex-row-reverse";
-  const getBubbleColor = (message) =>
-    isCurrentUserSender(message)
-      ? "bg-blue-100 text-blue-800 border-blue-200 rounded-tr-xl"
-      : "bg-gray-100 text-gray-700 border-gray-200 rounded-tl-xl";
 
   return (
     <div className="flex-1 overflow-scroll scrollbar-hide p-2 m-1">
@@ -33,7 +28,7 @@ const Messages = ({ messages, participants, scrollDown }) => {
             <MessageDateSeparator date={message.timestamp} />
           )}
 
-          <div className={`flex my-2 ${getMessageAlignment(message)} mb-2`}>
+          <div className={`flex  ${getMessageAlignment(message)} `}>
             <div className="w-[90%] md:w-1/2">
               <div
                 className={`flex items-center gap-2 ${getBubbleAlignment(
@@ -42,7 +37,7 @@ const Messages = ({ messages, participants, scrollDown }) => {
               >
                 <img
                   className="h-8 w-8 rounded-full"
-                  src={getParticipant(message.sender).avatar}
+                  src={getParticipant(message?.sender)?.avatar}
                   alt=""
                 />
 
@@ -52,39 +47,29 @@ const Messages = ({ messages, participants, scrollDown }) => {
                       message
                     )}`}
                   >
-                    {getParticipant(message.sender).name}
+                    {getParticipant(message.sender)?.name}
                     <span className="text-gray-500 text-sm">
-                      {formatTimestamp(message.timestamp)}
+                      {formatTimestamp(message?.timestamp)}
                     </span>
                   </p>
 
-                  <div
-                    contentEditable="true"
-                    className={`mt-2 p-4 rounded-b-xl border-2 overflow-wrap break-words ${getBubbleColor(
-                      message
-                    )}`}
-                  >
-                    {message.text}
-
-                    <div className="text-xs flex justify-end items-center mt-1">
-                      {message.status === "sent" && (
-                        <FaRegCheckCircle className="text-green-500 mr-1" />
-                      )}
-                      {message.status === "delivered" && (
-                        <FaRegClock className="text-yellow-500 mr-1" />
-                      )}
-                      {message.status === "failed" && (
-                        <FaRegTimesCircle className="text-red-500 mr-1" />
-                      )}
-                    </div>
-                  </div>
+                  <MessageContent
+                    content={message.content}
+                    type={message.type}
+                    status={message.status}
+                    isCurrentUserSender={isCurrentUserSender(message)}
+                  />
+                  {/* this will be added when adding events */}
+                  {/* <div className="flex  justify-center items-center h-[calc(100%-88px)]">
+                    <Typing />
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       ))}
-      <div ref={scrollDown} className="mt-2" />
+      <div ref={scrollDown} className="mt-4" />
     </div>
   );
 };

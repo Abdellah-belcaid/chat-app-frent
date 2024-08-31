@@ -1,27 +1,54 @@
 import React from "react";
-import { HiMail } from "react-icons/hi";
-import { Tooltip } from "react-tooltip";
+import {
+  FaFacebook,
+  FaGithub,
+  FaInstagram,
+  FaLinkedin,
+  FaTwitter,
+} from "react-icons/fa";
 
-const Footer = () => {
+function Footer() {
   return (
-    <footer className="h-[8%] bg-white p-2 border-t-2">
-      <div className="container mx-auto flex items-center justify-center">
-        {/* Contact Link with Tooltip */}
-        <a
-          href="mailto:contact@example.com"
-          data-tooltip-id="contact-tooltip"
-          data-tooltip-content="Contact Us"
-          className="flex items-center"
-          aria-label="Contact Us"
-        >
-          <HiMail className="mr-2 text-2xl" />
-        </a>
-
-        {/* Tooltips */}
-        <Tooltip id="contact-tooltip" place="top" />
+    <footer className="h-[8%] bg-white p-4 border-t-2  justify-center">
+      <div className="flex items-center justify-between">
+        <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+          © 2024. All Rights Reserved.
+        </span>
+        <div className="flex space-x-6 sm:mt-0 sm:justify-center">
+          <a
+            href="https://facebook.com"
+            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
+            <FaFacebook />
+          </a>
+          <a
+            href="https://instagram.com"
+            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
+            <FaInstagram />
+          </a>
+          <a
+            href="https://twitter.com"
+            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
+            <FaTwitter />
+          </a>
+          <a
+            href="https://github.com"
+            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
+            <FaGithub />
+          </a>
+          <a
+            href="https://linkedin.com/in/abdellah-belcaid"
+            className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
+          >
+            <FaLinkedin />
+          </a>
+        </div>
       </div>
     </footer>
   );
-};
+}
 
 export default Footer;

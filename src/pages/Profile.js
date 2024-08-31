@@ -4,52 +4,57 @@ import {
   FaInfoCircle,
   FaUserCircle,
 } from "react-icons/fa";
+import { TbUserSquareRounded } from "react-icons/tb";
 import { useSelector } from "react-redux";
+import { formatDate } from "src/components/utils/dateUtils";
+import { selectCurrentUser } from "src/redux/selectors/selectors";
+import backgroundImage from "src/assets/images/background_1.jpg";
 
 function Profile() {
-  const currentUser = useSelector((state) => state.app.currentUser);
+  const currentUser = useSelector(selectCurrentUser);
+
   console.log("render profile ", currentUser);
   return (
-    <div className="relative flex flex-col items-center w-full h-full p-1">
+    <div className="relative  flex flex-col items-center justify-center w-full h-full p-1">
       {/* Background Gradient */}
-      <div
-        className="absolute w-full h-1/3 m-2 object-cover"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+      <img
+        className="absolute top-0 w-full h-1/3 m-2 object-cover object-center"
+        src={backgroundImage}
+        alt="background"
       />
-      <div className="absolute bottom-0 bg-slate-100 h-2/3 w-full" />
-
-      <div className="flex flex-col backdrop-blur-[2px] z-50 mt-20 border-2 h-full w-full max-w-md text-center p-8 rounded-xl shadow-xl ">
+      <div className="absolute bottom-0 bg-sky-50 bg-gradient-to-b from-sky-50 via-purple-100 to-red-100 h-2/3 w-full" />
+      {/* user box */}
+      <div className="flex flex-col backdrop-blur-[2px] items-center  border-2 max-h-md w-full max-w-md text-center p-8 rounded-xl neon-sky  overflow-scroll scrollbar-hide  ">
         {/* User Avatar */}
-        <img
-          src={currentUser.avatar}
-          alt={currentUser.name}
-          className="h-35 w-35 mx-auto mb-4 rounded-full object-cover border-2 shadow-xl p-1"
-          
-        />
+        <div className="relative">
+          <img
+            src={currentUser?.avatar}
+            alt={currentUser?.name}transition-all
+            className="h-32 w-32 mx-auto mb-4 rounded-full object-cover border-2 shadow-xl p-1"
+          />
+          <TbUserSquareRounded className="absolute text-3xl hover:scale-125 text-purple-700 bg-white rounded-full bottom-2 right-2" />
+        </div>
 
         {/* User Name */}
         <h2 className="text-2xl font-semibold text-gray-800">
-          {currentUser.name}
+          {currentUser?.name}
         </h2>
 
         {/* User Details */}
         <div className="mt-2 text-gray-600">
           <p>
             <FaUserCircle className="inline-block mr-2" />
-            ID: {currentUser.id}
+            ID: {currentUser?.id}
           </p>
           <p>
             <FaEnvelope className="inline-block mr-2" />
-            Email: {currentUser.email || "N/A"}
+            Email: {currentUser?.email || "N/A"}
           </p>
           <p>
-            <FaClock className="inline-block mr-2" />
-            Last Seen: {currentUser.lastSeen.toLocaleString() || "N/A"}
+            <FaClock className="inline-block mr-2 " />
+            Last Seen:
+            {(currentUser?.lastSeen && formatDate(currentUser?.lastSeen)) ||
+              "N/A"}
           </p>
           {/* Add more details as needed */}
         </div>
@@ -58,7 +63,7 @@ function Profile() {
         <div className="mt-4 text-gray-700">
           <p>
             <FaInfoCircle className="inline-block mr-2" />
-            {currentUser.bio || "No description available."}
+            {currentUser?.bio || "No description available."}
           </p>
         </div>
 
@@ -67,6 +72,7 @@ function Profile() {
           Edit Profile
         </button>
       </div>
+      {/* end user box */}
     </div>
   );
 }

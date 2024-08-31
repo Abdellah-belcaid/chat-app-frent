@@ -3,14 +3,14 @@
 import { createSelector } from "reselect";
 
 // selector functions
-const selectAppState = (state) => state.app;
+// const selectAppState = (state) => state.app;
 const selectUsers = (state) => state.users;
 const selectMessages = (state) => state.messages;
 
 // Memoized selector using reselect
 export const selectCurrentUser = createSelector(
-  [selectAppState],
-  (appState) => appState.currentUser
+  [selectUsers],
+  (users) => users.currentUser
 );
 
 // Select online users based on status
